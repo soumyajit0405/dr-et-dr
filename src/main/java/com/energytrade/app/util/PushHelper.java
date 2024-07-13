@@ -15,7 +15,7 @@ public class PushHelper {
 
 	private static final String webServiceURI = "https://onesignal.com/api/v1/notifications";
 	//private final static String notification_url = "https://onesignal.com/api/v1/notifications";
-	private final static String AUTHTOKEN = "Basic ZGQzMDc1MDktMzQ0NC00MzM1LTkwNGEtNzMxZjE1MzA0NWQ4";
+	private final static String AUTHTOKEN = "Basic OGIyM2RjMjYtMzU2Yy00M2FlLWI4YTktMjI5ODdmYzEwNTk5";
 
 	public String pushToUser(String status, String playerId, String message, String wod)
 			throws ClassNotFoundException, SQLException {
@@ -46,9 +46,15 @@ public class PushHelper {
 			con.setRequestMethod("POST");
 			//if (status.equalsIgnoreCase("notifyservicemanoforders")) {
 
-				strJsonBody = "{" + "\"app_id\": \"9b0a5ec6-e306-4aa7-9713-722d8ee1f47c\","
-						+ "\"include_external_user_ids\": [\"" +playerId+"\"],"
-						+ "\"data\": {\"response\": \"notifyorders\"}," + "\"contents\": {\"en\": \"" + message + "\"}," + "\"priority\": \"10\"" + "}";
+//				strJsonBody = "{" + "\"app_id\": \"8d348083-2a45-4eb8-a58c-143730c7b6de\","
+//						+ "\"include_external_user_ids\": [\"" +playerId+"\"],"
+//						+ "\"data\": {\"response\": \"notifyorders\"}," + "\"contents\": {\"en\": \"" + message + "\"}," + "\"priority\": \"10\"" + "}";
+				strJsonBody = "{\r\n"
+						+ "    \"app_id\": \"8d348083-2a45-4eb8-a58c-143730c7b6de\",\r\n"
+						+ "    \"contents\": {\"en\": \"hello test message \"\r\n"
+						+ "    },\r\n"
+						+ "    \"included_segments\": [\"All\"]\r\n"
+						+ "}";
 
 			//}
 			/*
@@ -91,6 +97,6 @@ public class PushHelper {
 
 	public static void main(String args[]) throws ClassNotFoundException, SQLException {
 		PushHelper ph = new PushHelper();
-		ph.pushToUser("1", "1", "1", "1");
+		ph.pushToUser("1", "16", "Test Message 123", "1");
 	}
 }

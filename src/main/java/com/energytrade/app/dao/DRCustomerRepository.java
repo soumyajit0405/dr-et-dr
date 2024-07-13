@@ -26,6 +26,9 @@ public interface DRCustomerRepository extends JpaRepository<AllUser, Long> {
 
 	@Query("select distinct a from AllEventSet a, AllEvent b, EventCustomerMapping c where b.eventId = c.allEvent.eventId and a.eventSetId = b.allEventSet.eventSetId and c.allUser.userId = ?1 and c.eventCustomerStatusId != 1 order by a.eventSetId desc")
 	List<AllEventSet> getEventSetsForCustomer(int customerId);
+	
+//	@Query(value="select distinct a.* from all_event_sets a, all_events b, event_customer_mapping c where b.event_id = c.event_id and a.event_set_id = b.event_set_id and c.customer_id = ?1 and c.event_customer_status_id <> 1 order by a.status_id desc",nativeQuery = true)
+//	List<AllEventSet> getEventSetsForCustomer(int customerId);
 
 	@Query("select a from AllEvent a, EventCustomerMapping b where a.eventId = b.allEvent.eventId and b.allUser.userId = ?1 and a.allEventSet.eventSetId = ?2 and b.eventCustomerStatusId != 1")
 	List<AllEvent> getEventsForCustomerAndEventSet(int customerId, int eventSetId);

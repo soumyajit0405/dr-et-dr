@@ -33,7 +33,7 @@ public interface AllUserRepository extends JpaRepository<AllUser, Long>
     @Query("Select a from AllUser a where a.userId=?1")
     AllUser getUserById(int userId );
     
-    @Query("Select a from AllUser a, DRContracts b, UserAccessTypeMapping c where a.drContractNumber = b.contractNumber and a.userId=c.allUser.userId and c.userTypepl.userTypeId =2 and a.drContractNumber is not null")
+    @Query("Select a from AllUser a, DRContracts b, UserAccessTypeMapping c where a.drContractNumber = b.contractNumber and a.userId=c.allUser.userId and c.userTypepl.userTypeId =2 and a.drContractNumber is not null and a.softdeleteflag = 0")
     List<AllUser> getAllDrCustomers( );
     
     @Query("Select a from DRContracts a where a.contractNumber =?1")

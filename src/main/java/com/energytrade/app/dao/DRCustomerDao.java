@@ -134,29 +134,35 @@ public class DRCustomerDao {
 //						customerEventSets.get(i).getEventSetId());
 				List<AllEvent> eventsForCustomer = customerEventSets.get(i).getAllEvents();
 				for (int j = 0; j < eventsForCustomer.size(); j++) {
-					EventCustomerMapping evmp = drCustomerRepo.getEventCustomerMapping(customerId,
-							eventsForCustomer.get(j).getEventId());
-					EventSetEventDto eventSetEvent = new EventSetEventDto();
-					eventSetEvent.setEventId(eventsForCustomer.get(j).getEventId());
-					eventSetEvent.setPlannedPower(String.valueOf(eventsForCustomer.get(j).getPlannedPower()));
-					eventSetEvent.setPlannedPrice(String.valueOf(eventsForCustomer.get(j).getExpectedPrice()));
-					eventSetEvent.setEventName(eventsForCustomer.get(j).getEventName());
-					eventSetEvent.setEventStartTime(eventsForCustomer.get(j).getEventStartTime());
-					eventSetEvent.setEventEndTime(eventsForCustomer.get(j).getEventEndTime());
-					eventSetEvent.setEventEndTime(eventsForCustomer.get(j).getEventEndTime());
-					eventSetEvent.setCommittedPower(evmp.getCommitedPower());
-					eventSetEvent.setActualPower(evmp.getActualPower());
-					eventSetEvent.setBidprice(evmp.getBidPrice());
-					eventSetEvent.setCounterBidAmount(evmp.getCounterBidAmount());
-					eventSetEvent.setCounterBidFlag(evmp.getCounterBidFlag());
-					eventSetEvent.setCustomerFine(evmp.getCustomerFine());
-					eventSetEvent.setEventCustomerMappingStatus(String.valueOf(evmp.getEventCustomerStatusId()));
-					eventSetEvent.setEarnings(Double.toString(evmp.getEarnings()));
-					eventSetEvent.setIsFineApplicable(evmp.getIsFineApplicable());
-					eventSetEvent.setEventTypeId(eventsForCustomer.get(j).getEventTypeId().getDrEventTypeId());
-					eventSetEvent.setEventTypeName(eventsForCustomer.get(j).getEventTypeId().getName());
-					listOfEvents.add(eventSetEvent);
-
+					List<EventCustomerMapping> eventCustMap = eventsForCustomer.get(j).getEventCustomerMappings();
+					for (EventCustomerMapping evmp: eventCustMap ) {
+						if (evmp.getAllUser().getUserId() == customerId) {
+							EventSetEventDto eventSetEvent = new EventSetEventDto();
+							eventSetEvent.setEventId(eventsForCustomer.get(j).getEventId());
+							eventSetEvent.setPlannedPower(String.valueOf(eventsForCustomer.get(j).getPlannedPower()));
+							eventSetEvent.setPlannedPrice(String.valueOf(eventsForCustomer.get(j).getExpectedPrice()));
+							eventSetEvent.setEventName(eventsForCustomer.get(j).getEventName());
+							eventSetEvent.setEventStartTime(eventsForCustomer.get(j).getEventStartTime());
+							eventSetEvent.setEventEndTime(eventsForCustomer.get(j).getEventEndTime());
+							eventSetEvent.setEventEndTime(eventsForCustomer.get(j).getEventEndTime());
+							eventSetEvent.setCommittedPower(evmp.getCommitedPower());
+							eventSetEvent.setActualPower(evmp.getActualPower());
+							eventSetEvent.setBidprice(evmp.getBidPrice());
+							eventSetEvent.setCounterBidAmount(evmp.getCounterBidAmount());
+							eventSetEvent.setCounterBidFlag(evmp.getCounterBidFlag());
+							eventSetEvent.setCustomerFine(evmp.getCustomerFine());
+							eventSetEvent.setEventCustomerMappingStatus(String.valueOf(evmp.getEventCustomerStatusId()));
+							eventSetEvent.setEarnings(Double.toString(evmp.getEarnings()));
+							eventSetEvent.setIsFineApplicable(evmp.getIsFineApplicable());
+							eventSetEvent.setEventTypeId(eventsForCustomer.get(j).getEventTypeId().getDrEventTypeId());
+							eventSetEvent.setEventTypeName(eventsForCustomer.get(j).getEventTypeId().getName());
+							listOfEvents.add(eventSetEvent);
+		
+						}
+					}
+//					EventCustomerMapping evmp = drCustomerRepo.getEventCustomerMapping(customerId,
+//							eventsForCustomer.get(j).getEventId());
+					
 				}
 				eventSetDetailsDto.setEvents(listOfEvents);
 				eventSetDetailsDtoList.add(eventSetDetailsDto);
